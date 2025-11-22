@@ -1,31 +1,32 @@
 name: CI Basic Hono
 
 on:
-    push:
-        branches: ["main"]
-    pull_request:
-        branches: ["main"]
+  push:
+    branches: ["main"]
+  pull_request:
+    branches: ["main"]
 
 jobs:
-    build:
-        runs-on: ubuntu-latest
-        steps:
-          - name: Checkout Repository
-            uses: actions/checkout@v3
-          
-          - name: Setup Node
-            uses: actions/setup-node@v4
-            with:
-              node-version: 20
-          
-          - name: Install Dependencies
-            run: npm install
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v3
 
-          - name: Run Build
-            run: npm run build
-        
-          - name: Deploy
-            run: |
-               npm install -g @railway/cli
-               railway login --token ${{ secrets.TOKEN }}
-               railway up --project ${{ secrets.PROJECT_ID }} --detach
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Install Dependencies
+        run: npm install
+
+      - name: Run Build
+        run: npm run build
+
+      - name: Deploy
+        env:
+          RAILWAY_TOKEN: ${{ secrets.TOKEN }}   # ✅ token Railway di sini
+        run: |
+          npm install -g @railway/cli
+          railway up --project ${{ secrets.PROJECT_ID }} --detach
