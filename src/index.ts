@@ -6,6 +6,9 @@ const app = new Hono()
 app.get('/', (c) => {
   return c.text('Hello saya belajar CI/CD')
 })
+app.get('/say', (c) => {
+  return c.text('HALLO BOSS APA KABAR')
+})
 
 serve({
   fetch: app.fetch,
