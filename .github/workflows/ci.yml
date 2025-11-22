@@ -26,6 +26,6 @@ jobs:
         
           - name: Deploy
             run: |
-               npm install -g railway
+               npm install -g @railway/cli
                railway login --token ${{ secrets.TOKEN }}
                railway up --project ${{ secrets.PROJECT_ID }} --detach
